@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aswin Nair | Python Full Stack Developer</title>
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary-color: #3b82f6; /* Modern Blue */
+            --primary-dark: #2563eb;
+            --secondary-color: #10b981; /* Green for success/accents */
+            --bg-color: #0f172a; /* Dark Slate Background */
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --max-width: 1200px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- Utility Classes --- */
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            margin-left: 10px;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+            font-size: 1.1rem;
+        }
+
+        .hero-img {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-img img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
+
+        /* --- About Section --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-muted);
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Skills Section --- */
+        .skills-container {
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skills-category {
+            margin-bottom: 30px;
+        }
+
+        .skills-category h3 {
+            margin-bottom: 15px;
+            color: var(--text-main);
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: var(--transition);
+        }
+
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* --- Projects Section --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary-color);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-type {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .project-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tech-span {
+            font-size: 0.75rem;
+            background: #334155;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #cbd5e1;
+        }
+
+        /* --- Contact Section --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            background-color: var(--card-bg);
+            padding: 50px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .feedback-msg {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        
+        .feedback-success {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #020617;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            margin-top: 50px;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-img {
+                order: -1;
+                margin-bottom: 30px;
+            }
+
+            .about-grid, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: 0.3s ease-in-out;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                color: var(--text-main);
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Aswin<span>.dev</span></div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home" onclick="closeMenu()">Home</a></li>
+                    <li><a href="#about" onclick="closeMenu()">About</a></li>
+                    <li><a href="#skills" onclick="closeMenu()">Skills</a></li>
+                    <li><a href="#projects" onclick="closeMenu()">Projects</a></li>
+                    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+                </ul>
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    &#9776; <!-- Hamburger Icon -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2>Hello, I'm</h2>
+                    <h1>Aswin Nair</h1>
+                    <h2>Python Full Stack Developer</h2>
+                    <p>I enjoy building modern, responsive, and user-friendly web applications. I turn ideas into real-world projects using clean code and efficient digital experiences.</p>
+                    <div class="cta-group">
+                        <a href="#projects" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    </div>
+                </div>
+                <div class="hero-img">
+                    <!-- Using a generic placeholder for user avatar -->
+                    <img src="https://picsum.photos/seed/aswin/400/400" alt="Aswin Nair Profile">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <p class="section-subtitle">Who I Am</p>
+            <h2 class="section-title">About Me</h2>
+            
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Hi, I’m Aswin Nair — a passionate Python Full Stack Developer. I specialize in creating complete web solutions ranging from front-end design to complex back-end functionality.</p>
+                    <p>I have a strong interest in coding, problem-solving, and continuously learning new technologies. My toolkit includes Python, HTML, CSS, JavaScript, Bootstrap, and various databases.</p>
+                    <p>I love turning ideas into real-world projects and improving my skills through hands-on development. My goal is to grow as a developer, contribute to impactful projects, and build efficient digital experiences that users love.</p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h3>4+</h3>
+                        <p>Major Projects</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Full Stack</h3>
+                        <p>Proficiency</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>AI & IOT</h3>
+                        <p>Academic Research</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Continuous</h3>
+                        <p>Learner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <p class="section-subtitle">My Tech Stack</p>
+            <h2 class="section-title">Skills & Technologies</h2>
+
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3>Frontend Development</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript (ES6+)</span>
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Bootstrap 5</span>
+                        <span class="skill-tag">Responsive Design</span>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Backend & Database</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">API Development</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Hardware & Tools</h3>
+                    <div class="skills-list">
+                        <span class="skill-tag">Arduino Uno</span>
+                        <span class="skill-tag">Git & GitHub</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <p class="section-subtitle">Portfolio</p>
+            <h2 class="section-title">Featured Projects</h2>
+
+            <div class="projects-grid">
+                
+                <!-- Project 1: Academic -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/smartswitch/400/250" alt="Smart Switch">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-type">Academic Project</span>
+                        <h3>Smart Switch</h3>
+                        <p>An AI-powered virtual assistant technology project focused on home automation. The system allows users to control appliances via intelligent voice commands and automated schedules.</p>
+                        <div class="tech-stack">
+                            <span class="tech-span">Python</span>
+                            <span class="tech-span">AI/ML</span>
+                            <span class="tech-span">IoT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Academic -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/parking/400/250" alt="Smart Car Parking">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-type">Academic Project</span>
+                        <h3>Smart Car Parking System</h3>
+                        <p>A hardware-based solution using Arduino Uno to detect available parking slots and display status in real-time, optimizing space usage in congested areas.</p>
+                        <div class="tech-stack">
+                            <span class="tech-span">Arduino Uno</span>
+                            <span class="tech-span">Sensors</span>
+                            <span class="tech-span">C++</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Internship -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/alibaba/400/250" alt="Alibaba Clone">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-type">Internship Project</span>
+                        <h3>Alibaba Site Clone</h3>
+                        <p>A fully functional e-commerce frontend replica inspired by Alibaba. Features include product listings, search functionality, cart simulation, and a responsive user interface.</p>
+                        <div class="tech-stack">
+                            <span class="tech-span">HTML/CSS</span>
+                            <span class="tech-span">JavaScript</span>
+                            <span class="tech-span">Bootstrap</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Internship -->
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="https://picsum.photos/seed/bookmyshow/400/250" alt="Book My Show Clone">
+                    </div>
+                    <div class="project-content">
+                        <span class="project-type">Internship Project</span>
+                        <h3>Book My Show Clone</h3>
+                        <p>An entertainment ticket booking platform clone. Users can browse movies, view showtimes, select seats, and book tickets dynamically within the app.</p>
+                        <div class="tech-stack">
+                            <span class="tech-span">React</span>
+                            <span class="tech-span">Python/Django</span>
+                            <span class="tech-span">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <p class="section-subtitle">Get In Touch</p>
+            <h2 class="section-title">Contact Me</h2>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Let's talk about your project</h3>
+                    <p>I'm currently available for freelance work and full-time opportunities. If you have a project that needs some creative touch or technical expertise, feel free to contact me.</p>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">&#9993;</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>aswin@example.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">&#9742;</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">&#128205;</div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form id="contactForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                        <div id="formFeedback" class="feedback-msg feedback-success">
+                            Thank you! Your message has been sent successfully.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Aswin Nair. All rights reserved.</p>
+            <p style="margin-top: 5px; font-size: 0.8rem;">Built with Python passion & HTML/CSS expertise.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu & Form Interaction -->
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close menu when a link is clicked
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        }
+
+        // Handle Contact Form Submit (Simulation)
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const feedback = document.getElementById('formFeedback');
+            const originalText = btn.innerText;
+
+            // Simulate loading
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Show success message
+                feedback.style.display = 'block';
+                e.target.reset();
+                
+                // Reset button
+                btn.innerText = originalText;
+                btn.disabled = false;
+
+                // Hide message after 3 seconds
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 4000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
